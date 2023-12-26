@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34316.72
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "e-bilet", "e-bilet\e-bilet.csproj", "{A49E3409-4A17-4D68-81FD-B5689936D449}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "img", "img", "{9CDC1256-4E93-43F8-9386-CF6C71729985}"
+	ProjectSection(SolutionItems) = preProject
+		..\img\balerin.jpg = ..\img\balerin.jpg
+		..\img\konser.jpg = ..\img\konser.jpg
+		..\img\popcorn.jpg = ..\img\popcorn.jpg
+		..\img\tiyatyo.jpg = ..\img\tiyatyo.jpg
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A49E3409-4A17-4D68-81FD-B5689936D449}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A49E3409-4A17-4D68-81FD-B5689936D449}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A49E3409-4A17-4D68-81FD-B5689936D449}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A49E3409-4A17-4D68-81FD-B5689936D449}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A4C4D147-320C-4695-A11F-6C92B25F3C30}
+	EndGlobalSection
+EndGlobal

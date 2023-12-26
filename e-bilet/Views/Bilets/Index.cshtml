@@ -1,0 +1,52 @@
+﻿@model List<e_bilet.Models.tblBilet>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+<body>
+    <h2>Bilet List</h2>
+
+    <table style="width: 100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>etkinlik</th>
+                <th>Ucret</th>
+                <!-- Add other headers as needed -->
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var bilet in Model)
+            {
+                <tr>
+                    <td>@bilet.BiletID</td>
+                    <td>@(bilet.EtkinlikID != 0 ? bilet.tblEtkinlik.EtkinlikAdi : "N/A")</td>
+                    <td>@bilet.Ucret</td>
+                    <!-- Add other columns as needed -->
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+<div style="background-color: salmon; width: 100px; height: 30px; color: white; padding: 4px; margin: 4px">
+    @Html.ActionLink("Create New", "Create")
+</div>
+
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    th, td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+</style>

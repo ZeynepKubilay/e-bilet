@@ -1,0 +1,813 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="EFEbiletDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblAdmin">
+          <Key>
+            <PropertyRef Name="KisiNo" />
+          </Key>
+          <Property Name="KisiNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KimlikNo" Type="nchar" MaxLength="11" />
+        </EntityType>
+        <EntityType Name="tblBilet">
+          <Key>
+            <PropertyRef Name="BiletID" />
+          </Key>
+          <Property Name="BiletID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EtkinlikID" Type="int" Nullable="false" />
+          <Property Name="Ucret" Type="int" />
+        </EntityType>
+        <EntityType Name="tblBolge">
+          <Key>
+            <PropertyRef Name="BolgeNo" />
+          </Key>
+          <Property Name="BolgeNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="il" Type="varchar" MaxLength="10" />
+          <Property Name="ilce" Type="varchar" MaxLength="10" />
+          <Property Name="Mahalle" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="tblEtkinlik">
+          <Key>
+            <PropertyRef Name="EtkinlikID" />
+          </Key>
+          <Property Name="EtkinlikID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EtkinlikAdi" Type="nchar" MaxLength="10" />
+          <Property Name="KategoriID" Type="int" />
+          <Property Name="BolgeNo" Type="int" />
+          <Property Name="Tarih" Type="datetimeoffset" Precision="7" />
+        </EntityType>
+        <EntityType Name="tblFatura">
+          <Key>
+            <PropertyRef Name="FaturaNo" />
+          </Key>
+          <Property Name="FaturaNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FaturaTarihi" Type="date" />
+          <Property Name="OdemeTuruId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblIletişimBilgileri">
+          <Key>
+            <PropertyRef Name="No" />
+          </Key>
+          <Property Name="No" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TelefonNumarasi" Type="nchar" MaxLength="10" />
+          <Property Name="Adres" Type="nchar" MaxLength="10" />
+          <Property Name="kisiNo" Type="nchar" MaxLength="10" />
+          <Property Name="email" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="tblKategori">
+          <Key>
+            <PropertyRef Name="KategoriID" />
+          </Key>
+          <Property Name="KategoriID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KategoriTuruId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblKategoriTuru">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="KategoriTuru" Type="varchar" MaxLength="20" />
+          <Property Name="KonserAdi" Type="varchar" MaxLength="50" />
+          <Property Name="TiyatroAdi" Type="varchar" MaxLength="50" />
+          <Property Name="SinemaAdi" Type="varchar" MaxLength="50" />
+          <Property Name="BalerinAdi" Type="varchar" MaxLength="50" />
+          <Property Name="id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblKisi">
+          <Key>
+            <PropertyRef Name="KisiNo" />
+          </Key>
+          <Property Name="KisiNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ad" Type="varchar" MaxLength="20" />
+          <Property Name="Soyad" Type="varchar" MaxLength="20" />
+          <Property Name="KisiTürü" Type="nchar" MaxLength="10" />
+          <Property Name="Sifre" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblMusteri">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="KisiNo" Type="int" />
+          <Property Name="KimlikNo" Type="nchar" MaxLength="10" />
+          <Property Name="SiparisNo" Type="nchar" MaxLength="10" />
+          <Property Name="id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblOdemeTuru">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nchar" MaxLength="10" />
+          <Property Name="isCash" Type="smallint" />
+        </EntityType>
+        <EntityType Name="tblSiparis">
+          <Key>
+            <PropertyRef Name="SiparisNo" />
+          </Key>
+          <Property Name="SiparisNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SiparisTarihi" Type="date" />
+          <Property Name="ToplamTutar" Type="int" />
+          <Property Name="FaturaNo" Type="int" />
+          <Property Name="SiparisMiktari" Type="int" />
+          <Property Name="BiletID" Type="int" />
+        </EntityType>
+        <Association Name="FK_tblAdmin_tblKisi">
+          <End Role="tblKisi" Type="Self.tblKisi" Multiplicity="1" />
+          <End Role="tblAdmin" Type="Self.tblAdmin" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tblKisi">
+              <PropertyRef Name="KisiNo" />
+            </Principal>
+            <Dependent Role="tblAdmin">
+              <PropertyRef Name="KisiNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblBilet_tblEtkinlik">
+          <End Role="tblEtkinlik" Type="Self.tblEtkinlik" Multiplicity="1" />
+          <End Role="tblBilet" Type="Self.tblBilet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblEtkinlik">
+              <PropertyRef Name="EtkinlikID" />
+            </Principal>
+            <Dependent Role="tblBilet">
+              <PropertyRef Name="EtkinlikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblEtkinlik_tblBolge">
+          <End Role="tblBolge" Type="Self.tblBolge" Multiplicity="0..1" />
+          <End Role="tblEtkinlik" Type="Self.tblEtkinlik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBolge">
+              <PropertyRef Name="BolgeNo" />
+            </Principal>
+            <Dependent Role="tblEtkinlik">
+              <PropertyRef Name="BolgeNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblFatura_tblOdemeTuru">
+          <End Role="tblOdemeTuru" Type="Self.tblOdemeTuru" Multiplicity="1" />
+          <End Role="tblFatura" Type="Self.tblFatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblOdemeTuru">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblFatura">
+              <PropertyRef Name="OdemeTuruId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblIletişimBilgileri_tblIletişimBilgileri">
+          <End Role="tblIletişimBilgileri" Type="Self.tblIletişimBilgileri" Multiplicity="1" />
+          <End Role="tblIletişimBilgileri1" Type="Self.tblIletişimBilgileri" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tblIletişimBilgileri">
+              <PropertyRef Name="No" />
+            </Principal>
+            <Dependent Role="tblIletişimBilgileri1">
+              <PropertyRef Name="No" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblIletişimBilgileri_tblIletişimBilgileri1">
+          <End Role="tblIletişimBilgileri" Type="Self.tblIletişimBilgileri" Multiplicity="1" />
+          <End Role="tblIletişimBilgileri1" Type="Self.tblIletişimBilgileri" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tblIletişimBilgileri">
+              <PropertyRef Name="No" />
+            </Principal>
+            <Dependent Role="tblIletişimBilgileri1">
+              <PropertyRef Name="No" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblKategori_tblKategoriTuru">
+          <End Role="tblKategoriTuru" Type="Self.tblKategoriTuru" Multiplicity="1" />
+          <End Role="tblKategori" Type="Self.tblKategori" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblKategoriTuru">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblKategori">
+              <PropertyRef Name="KategoriTuruId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblKisi_tblKisi">
+          <End Role="tblKisi" Type="Self.tblKisi" Multiplicity="1" />
+          <End Role="tblKisi1" Type="Self.tblKisi" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tblKisi">
+              <PropertyRef Name="KisiNo" />
+            </Principal>
+            <Dependent Role="tblKisi1">
+              <PropertyRef Name="KisiNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblKisi_tblKisi1">
+          <End Role="tblKisi" Type="Self.tblKisi" Multiplicity="1" />
+          <End Role="tblKisi1" Type="Self.tblKisi" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tblKisi">
+              <PropertyRef Name="KisiNo" />
+            </Principal>
+            <Dependent Role="tblKisi1">
+              <PropertyRef Name="KisiNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblKisi_tblKisi2">
+          <End Role="tblKisi" Type="Self.tblKisi" Multiplicity="1" />
+          <End Role="tblKisi1" Type="Self.tblKisi" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tblKisi">
+              <PropertyRef Name="KisiNo" />
+            </Principal>
+            <Dependent Role="tblKisi1">
+              <PropertyRef Name="KisiNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblMusteri_tblMusteri">
+          <End Role="tblKisi" Type="Self.tblKisi" Multiplicity="0..1" />
+          <End Role="tblMusteri" Type="Self.tblMusteri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblKisi">
+              <PropertyRef Name="KisiNo" />
+            </Principal>
+            <Dependent Role="tblMusteri">
+              <PropertyRef Name="KisiNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSiparis_tblFatura1">
+          <End Role="tblFatura" Type="Self.tblFatura" Multiplicity="0..1" />
+          <End Role="tblSiparis" Type="Self.tblSiparis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFatura">
+              <PropertyRef Name="FaturaNo" />
+            </Principal>
+            <Dependent Role="tblSiparis">
+              <PropertyRef Name="FaturaNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EFEbiletDBModelStoreContainer">
+          <EntitySet Name="tblAdmin" EntityType="Self.tblAdmin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblBilet" EntityType="Self.tblBilet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblBolge" EntityType="Self.tblBolge" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblEtkinlik" EntityType="Self.tblEtkinlik" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblFatura" EntityType="Self.tblFatura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblIletişimBilgileri" EntityType="Self.tblIletişimBilgileri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblKategori" EntityType="Self.tblKategori" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblKategoriTuru" EntityType="Self.tblKategoriTuru" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblKisi" EntityType="Self.tblKisi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblMusteri" EntityType="Self.tblMusteri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblOdemeTuru" EntityType="Self.tblOdemeTuru" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSiparis" EntityType="Self.tblSiparis" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblAdmin_tblKisi" Association="Self.FK_tblAdmin_tblKisi">
+            <End Role="tblKisi" EntitySet="tblKisi" />
+            <End Role="tblAdmin" EntitySet="tblAdmin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblBilet_tblEtkinlik" Association="Self.FK_tblBilet_tblEtkinlik">
+            <End Role="tblEtkinlik" EntitySet="tblEtkinlik" />
+            <End Role="tblBilet" EntitySet="tblBilet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblEtkinlik_tblBolge" Association="Self.FK_tblEtkinlik_tblBolge">
+            <End Role="tblBolge" EntitySet="tblBolge" />
+            <End Role="tblEtkinlik" EntitySet="tblEtkinlik" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblFatura_tblOdemeTuru" Association="Self.FK_tblFatura_tblOdemeTuru">
+            <End Role="tblOdemeTuru" EntitySet="tblOdemeTuru" />
+            <End Role="tblFatura" EntitySet="tblFatura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblIletişimBilgileri_tblIletişimBilgileri" Association="Self.FK_tblIletişimBilgileri_tblIletişimBilgileri">
+            <End Role="tblIletişimBilgileri" EntitySet="tblIletişimBilgileri" />
+            <End Role="tblIletişimBilgileri1" EntitySet="tblIletişimBilgileri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblIletişimBilgileri_tblIletişimBilgileri1" Association="Self.FK_tblIletişimBilgileri_tblIletişimBilgileri1">
+            <End Role="tblIletişimBilgileri" EntitySet="tblIletişimBilgileri" />
+            <End Role="tblIletişimBilgileri1" EntitySet="tblIletişimBilgileri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblKategori_tblKategoriTuru" Association="Self.FK_tblKategori_tblKategoriTuru">
+            <End Role="tblKategoriTuru" EntitySet="tblKategoriTuru" />
+            <End Role="tblKategori" EntitySet="tblKategori" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblKisi_tblKisi" Association="Self.FK_tblKisi_tblKisi">
+            <End Role="tblKisi" EntitySet="tblKisi" />
+            <End Role="tblKisi1" EntitySet="tblKisi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblKisi_tblKisi1" Association="Self.FK_tblKisi_tblKisi1">
+            <End Role="tblKisi" EntitySet="tblKisi" />
+            <End Role="tblKisi1" EntitySet="tblKisi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblKisi_tblKisi2" Association="Self.FK_tblKisi_tblKisi2">
+            <End Role="tblKisi" EntitySet="tblKisi" />
+            <End Role="tblKisi1" EntitySet="tblKisi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblMusteri_tblMusteri" Association="Self.FK_tblMusteri_tblMusteri">
+            <End Role="tblKisi" EntitySet="tblKisi" />
+            <End Role="tblMusteri" EntitySet="tblMusteri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSiparis_tblFatura1" Association="Self.FK_tblSiparis_tblFatura1">
+            <End Role="tblFatura" EntitySet="tblFatura" />
+            <End Role="tblSiparis" EntitySet="tblSiparis" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EFEbiletDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="EFEbiletDBEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblAdmin" EntityType="EFEbiletDBModel.tblAdmin" />
+          <EntitySet Name="tblBilet" EntityType="EFEbiletDBModel.tblBilet" />
+          <EntitySet Name="tblBolge" EntityType="EFEbiletDBModel.tblBolge" />
+          <EntitySet Name="tblEtkinlik" EntityType="EFEbiletDBModel.tblEtkinlik" />
+          <EntitySet Name="tblFatura" EntityType="EFEbiletDBModel.tblFatura" />
+          <EntitySet Name="tblIletişimBilgileri" EntityType="EFEbiletDBModel.tblIletişimBilgileri" />
+          <EntitySet Name="tblKategori" EntityType="EFEbiletDBModel.tblKategori" />
+          <EntitySet Name="tblKategoriTuru" EntityType="EFEbiletDBModel.tblKategoriTuru" />
+          <EntitySet Name="tblKisi" EntityType="EFEbiletDBModel.tblKisi" />
+          <EntitySet Name="tblMusteri" EntityType="EFEbiletDBModel.tblMusteri" />
+          <EntitySet Name="tblOdemeTuru" EntityType="EFEbiletDBModel.tblOdemeTuru" />
+          <EntitySet Name="tblSiparis" EntityType="EFEbiletDBModel.tblSiparis" />
+          <AssociationSet Name="FK_tblAdmin_tblKisi" Association="EFEbiletDBModel.FK_tblAdmin_tblKisi">
+            <End Role="tblKisi" EntitySet="tblKisi" />
+            <End Role="tblAdmin" EntitySet="tblAdmin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblBilet_tblEtkinlik" Association="EFEbiletDBModel.FK_tblBilet_tblEtkinlik">
+            <End Role="tblEtkinlik" EntitySet="tblEtkinlik" />
+            <End Role="tblBilet" EntitySet="tblBilet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblEtkinlik_tblBolge" Association="EFEbiletDBModel.FK_tblEtkinlik_tblBolge">
+            <End Role="tblBolge" EntitySet="tblBolge" />
+            <End Role="tblEtkinlik" EntitySet="tblEtkinlik" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblFatura_tblOdemeTuru" Association="EFEbiletDBModel.FK_tblFatura_tblOdemeTuru">
+            <End Role="tblOdemeTuru" EntitySet="tblOdemeTuru" />
+            <End Role="tblFatura" EntitySet="tblFatura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSiparis_tblFatura1" Association="EFEbiletDBModel.FK_tblSiparis_tblFatura1">
+            <End Role="tblFatura" EntitySet="tblFatura" />
+            <End Role="tblSiparis" EntitySet="tblSiparis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblIletişimBilgileri_tblIletişimBilgileri" Association="EFEbiletDBModel.FK_tblIletişimBilgileri_tblIletişimBilgileri">
+            <End Role="tblIletişimBilgileri" EntitySet="tblIletişimBilgileri" />
+            <End Role="tblIletişimBilgileri1" EntitySet="tblIletişimBilgileri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblIletişimBilgileri_tblIletişimBilgileri1" Association="EFEbiletDBModel.FK_tblIletişimBilgileri_tblIletişimBilgileri1">
+            <End Role="tblIletişimBilgileri" EntitySet="tblIletişimBilgileri" />
+            <End Role="tblIletişimBilgileri1" EntitySet="tblIletişimBilgileri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblKategori_tblKategoriTuru" Association="EFEbiletDBModel.FK_tblKategori_tblKategoriTuru">
+            <End Role="tblKategoriTuru" EntitySet="tblKategoriTuru" />
+            <End Role="tblKategori" EntitySet="tblKategori" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblKisi_tblKisi" Association="EFEbiletDBModel.FK_tblKisi_tblKisi">
+            <End Role="tblKisi" EntitySet="tblKisi" />
+            <End Role="tblKisi1" EntitySet="tblKisi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblKisi_tblKisi1" Association="EFEbiletDBModel.FK_tblKisi_tblKisi1">
+            <End Role="tblKisi" EntitySet="tblKisi" />
+            <End Role="tblKisi1" EntitySet="tblKisi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblKisi_tblKisi2" Association="EFEbiletDBModel.FK_tblKisi_tblKisi2">
+            <End Role="tblKisi" EntitySet="tblKisi" />
+            <End Role="tblKisi1" EntitySet="tblKisi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblMusteri_tblMusteri" Association="EFEbiletDBModel.FK_tblMusteri_tblMusteri">
+            <End Role="tblKisi" EntitySet="tblKisi" />
+            <End Role="tblMusteri" EntitySet="tblMusteri" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="tblAdmin">
+          <Key>
+            <PropertyRef Name="KisiNo" />
+          </Key>
+          <Property Name="KisiNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KimlikNo" Type="String" MaxLength="11" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="tblKisi" Relationship="EFEbiletDBModel.FK_tblAdmin_tblKisi" FromRole="tblAdmin" ToRole="tblKisi" />
+        </EntityType>
+        <EntityType Name="tblBilet">
+          <Key>
+            <PropertyRef Name="BiletID" />
+          </Key>
+          <Property Name="BiletID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EtkinlikID" Type="Int32" Nullable="false" />
+          <Property Name="Ucret" Type="Int32" />
+          <NavigationProperty Name="tblEtkinlik" Relationship="EFEbiletDBModel.FK_tblBilet_tblEtkinlik" FromRole="tblBilet" ToRole="tblEtkinlik" />
+        </EntityType>
+        <EntityType Name="tblBolge">
+          <Key>
+            <PropertyRef Name="BolgeNo" />
+          </Key>
+          <Property Name="BolgeNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="il" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ilce" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Mahalle" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblEtkinlik" Relationship="EFEbiletDBModel.FK_tblEtkinlik_tblBolge" FromRole="tblBolge" ToRole="tblEtkinlik" />
+        </EntityType>
+        <EntityType Name="tblEtkinlik">
+          <Key>
+            <PropertyRef Name="EtkinlikID" />
+          </Key>
+          <Property Name="EtkinlikID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EtkinlikAdi" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="KategoriID" Type="Int32" />
+          <Property Name="BolgeNo" Type="Int32" />
+          <Property Name="Tarih" Type="DateTimeOffset" Precision="7" />
+          <NavigationProperty Name="tblBilet" Relationship="EFEbiletDBModel.FK_tblBilet_tblEtkinlik" FromRole="tblEtkinlik" ToRole="tblBilet" />
+          <NavigationProperty Name="tblBolge" Relationship="EFEbiletDBModel.FK_tblEtkinlik_tblBolge" FromRole="tblEtkinlik" ToRole="tblBolge" />
+        </EntityType>
+        <EntityType Name="tblFatura">
+          <Key>
+            <PropertyRef Name="FaturaNo" />
+          </Key>
+          <Property Name="FaturaNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FaturaTarihi" Type="DateTime" Precision="0" />
+          <Property Name="OdemeTuruId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblOdemeTuru" Relationship="EFEbiletDBModel.FK_tblFatura_tblOdemeTuru" FromRole="tblFatura" ToRole="tblOdemeTuru" />
+          <NavigationProperty Name="tblSiparis" Relationship="EFEbiletDBModel.FK_tblSiparis_tblFatura1" FromRole="tblFatura" ToRole="tblSiparis" />
+        </EntityType>
+        <EntityType Name="tblIletişimBilgileri">
+          <Key>
+            <PropertyRef Name="No" />
+          </Key>
+          <Property Name="No" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TelefonNumarasi" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Adres" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="kisiNo" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="tblIletişimBilgileri1" Relationship="EFEbiletDBModel.FK_tblIletişimBilgileri_tblIletişimBilgileri" FromRole="tblIletişimBilgileri" ToRole="tblIletişimBilgileri1" />
+          <NavigationProperty Name="tblIletişimBilgileri2" Relationship="EFEbiletDBModel.FK_tblIletişimBilgileri_tblIletişimBilgileri" FromRole="tblIletişimBilgileri1" ToRole="tblIletişimBilgileri" />
+          <NavigationProperty Name="tblIletişimBilgileri11" Relationship="EFEbiletDBModel.FK_tblIletişimBilgileri_tblIletişimBilgileri1" FromRole="tblIletişimBilgileri" ToRole="tblIletişimBilgileri1" />
+          <NavigationProperty Name="tblIletişimBilgileri3" Relationship="EFEbiletDBModel.FK_tblIletişimBilgileri_tblIletişimBilgileri1" FromRole="tblIletişimBilgileri1" ToRole="tblIletişimBilgileri" />
+        </EntityType>
+        <EntityType Name="tblKategori">
+          <Key>
+            <PropertyRef Name="KategoriID" />
+          </Key>
+          <Property Name="KategoriID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KategoriTuruId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblKategoriTuru" Relationship="EFEbiletDBModel.FK_tblKategori_tblKategoriTuru" FromRole="tblKategori" ToRole="tblKategoriTuru" />
+        </EntityType>
+        <EntityType Name="tblKategoriTuru">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="KategoriTuru" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="KonserAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TiyatroAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SinemaAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BalerinAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblKategori" Relationship="EFEbiletDBModel.FK_tblKategori_tblKategoriTuru" FromRole="tblKategoriTuru" ToRole="tblKategori" />
+        </EntityType>
+        <EntityType Name="tblKisi">
+          <Key>
+            <PropertyRef Name="KisiNo" />
+          </Key>
+          <Property Name="KisiNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ad" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Soyad" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="KisiTürü" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Sifre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblAdmin" Relationship="EFEbiletDBModel.FK_tblAdmin_tblKisi" FromRole="tblKisi" ToRole="tblAdmin" />
+          <NavigationProperty Name="tblKisi1" Relationship="EFEbiletDBModel.FK_tblKisi_tblKisi" FromRole="tblKisi" ToRole="tblKisi1" />
+          <NavigationProperty Name="tblKisi2" Relationship="EFEbiletDBModel.FK_tblKisi_tblKisi" FromRole="tblKisi1" ToRole="tblKisi" />
+          <NavigationProperty Name="tblKisi11" Relationship="EFEbiletDBModel.FK_tblKisi_tblKisi1" FromRole="tblKisi" ToRole="tblKisi1" />
+          <NavigationProperty Name="tblKisi3" Relationship="EFEbiletDBModel.FK_tblKisi_tblKisi1" FromRole="tblKisi1" ToRole="tblKisi" />
+          <NavigationProperty Name="tblKisi12" Relationship="EFEbiletDBModel.FK_tblKisi_tblKisi2" FromRole="tblKisi" ToRole="tblKisi1" />
+          <NavigationProperty Name="tblKisi4" Relationship="EFEbiletDBModel.FK_tblKisi_tblKisi2" FromRole="tblKisi1" ToRole="tblKisi" />
+          <NavigationProperty Name="tblMusteri" Relationship="EFEbiletDBModel.FK_tblMusteri_tblMusteri" FromRole="tblKisi" ToRole="tblMusteri" />
+        </EntityType>
+        <EntityType Name="tblMusteri">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="KisiNo" Type="Int32" />
+          <Property Name="KimlikNo" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="SiparisNo" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblKisi" Relationship="EFEbiletDBModel.FK_tblMusteri_tblMusteri" FromRole="tblMusteri" ToRole="tblKisi" />
+        </EntityType>
+        <EntityType Name="tblOdemeTuru">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="isCash" Type="Int16" />
+          <NavigationProperty Name="tblFatura" Relationship="EFEbiletDBModel.FK_tblFatura_tblOdemeTuru" FromRole="tblOdemeTuru" ToRole="tblFatura" />
+        </EntityType>
+        <EntityType Name="tblSiparis">
+          <Key>
+            <PropertyRef Name="SiparisNo" />
+          </Key>
+          <Property Name="SiparisNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SiparisTarihi" Type="DateTime" Precision="0" />
+          <Property Name="ToplamTutar" Type="Int32" />
+          <Property Name="FaturaNo" Type="Int32" />
+          <Property Name="SiparisMiktari" Type="Int32" />
+          <Property Name="BiletID" Type="Int32" />
+          <NavigationProperty Name="tblFatura" Relationship="EFEbiletDBModel.FK_tblSiparis_tblFatura1" FromRole="tblSiparis" ToRole="tblFatura" />
+        </EntityType>
+        <Association Name="FK_tblAdmin_tblKisi">
+          <End Type="EFEbiletDBModel.tblKisi" Role="tblKisi" Multiplicity="1" />
+          <End Type="EFEbiletDBModel.tblAdmin" Role="tblAdmin" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tblKisi">
+              <PropertyRef Name="KisiNo" />
+            </Principal>
+            <Dependent Role="tblAdmin">
+              <PropertyRef Name="KisiNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblBilet_tblEtkinlik">
+          <End Type="EFEbiletDBModel.tblEtkinlik" Role="tblEtkinlik" Multiplicity="1" />
+          <End Type="EFEbiletDBModel.tblBilet" Role="tblBilet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblEtkinlik">
+              <PropertyRef Name="EtkinlikID" />
+            </Principal>
+            <Dependent Role="tblBilet">
+              <PropertyRef Name="EtkinlikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblEtkinlik_tblBolge">
+          <End Type="EFEbiletDBModel.tblBolge" Role="tblBolge" Multiplicity="0..1" />
+          <End Type="EFEbiletDBModel.tblEtkinlik" Role="tblEtkinlik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBolge">
+              <PropertyRef Name="BolgeNo" />
+            </Principal>
+            <Dependent Role="tblEtkinlik">
+              <PropertyRef Name="BolgeNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblFatura_tblOdemeTuru">
+          <End Type="EFEbiletDBModel.tblOdemeTuru" Role="tblOdemeTuru" Multiplicity="1" />
+          <End Type="EFEbiletDBModel.tblFatura" Role="tblFatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblOdemeTuru">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblFatura">
+              <PropertyRef Name="OdemeTuruId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSiparis_tblFatura1">
+          <End Type="EFEbiletDBModel.tblFatura" Role="tblFatura" Multiplicity="0..1" />
+          <End Type="EFEbiletDBModel.tblSiparis" Role="tblSiparis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFatura">
+              <PropertyRef Name="FaturaNo" />
+            </Principal>
+            <Dependent Role="tblSiparis">
+              <PropertyRef Name="FaturaNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblIletişimBilgileri_tblIletişimBilgileri">
+          <End Type="EFEbiletDBModel.tblIletişimBilgileri" Role="tblIletişimBilgileri" Multiplicity="1" />
+          <End Type="EFEbiletDBModel.tblIletişimBilgileri" Role="tblIletişimBilgileri1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tblIletişimBilgileri">
+              <PropertyRef Name="No" />
+            </Principal>
+            <Dependent Role="tblIletişimBilgileri1">
+              <PropertyRef Name="No" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblIletişimBilgileri_tblIletişimBilgileri1">
+          <End Type="EFEbiletDBModel.tblIletişimBilgileri" Role="tblIletişimBilgileri" Multiplicity="1" />
+          <End Type="EFEbiletDBModel.tblIletişimBilgileri" Role="tblIletişimBilgileri1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tblIletişimBilgileri">
+              <PropertyRef Name="No" />
+            </Principal>
+            <Dependent Role="tblIletişimBilgileri1">
+              <PropertyRef Name="No" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblKategori_tblKategoriTuru">
+          <End Type="EFEbiletDBModel.tblKategoriTuru" Role="tblKategoriTuru" Multiplicity="1" />
+          <End Type="EFEbiletDBModel.tblKategori" Role="tblKategori" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblKategoriTuru">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblKategori">
+              <PropertyRef Name="KategoriTuruId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblKisi_tblKisi">
+          <End Type="EFEbiletDBModel.tblKisi" Role="tblKisi" Multiplicity="1" />
+          <End Type="EFEbiletDBModel.tblKisi" Role="tblKisi1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tblKisi">
+              <PropertyRef Name="KisiNo" />
+            </Principal>
+            <Dependent Role="tblKisi1">
+              <PropertyRef Name="KisiNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblKisi_tblKisi1">
+          <End Type="EFEbiletDBModel.tblKisi" Role="tblKisi" Multiplicity="1" />
+          <End Type="EFEbiletDBModel.tblKisi" Role="tblKisi1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tblKisi">
+              <PropertyRef Name="KisiNo" />
+            </Principal>
+            <Dependent Role="tblKisi1">
+              <PropertyRef Name="KisiNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblKisi_tblKisi2">
+          <End Type="EFEbiletDBModel.tblKisi" Role="tblKisi" Multiplicity="1" />
+          <End Type="EFEbiletDBModel.tblKisi" Role="tblKisi1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tblKisi">
+              <PropertyRef Name="KisiNo" />
+            </Principal>
+            <Dependent Role="tblKisi1">
+              <PropertyRef Name="KisiNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblMusteri_tblMusteri">
+          <End Type="EFEbiletDBModel.tblKisi" Role="tblKisi" Multiplicity="0..1" />
+          <End Type="EFEbiletDBModel.tblMusteri" Role="tblMusteri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblKisi">
+              <PropertyRef Name="KisiNo" />
+            </Principal>
+            <Dependent Role="tblMusteri">
+              <PropertyRef Name="KisiNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EFEbiletDBModelStoreContainer" CdmEntityContainer="EFEbiletDBEntities2">
+          <EntitySetMapping Name="tblAdmin">
+            <EntityTypeMapping TypeName="EFEbiletDBModel.tblAdmin">
+              <MappingFragment StoreEntitySet="tblAdmin">
+                <ScalarProperty Name="KimlikNo" ColumnName="KimlikNo" />
+                <ScalarProperty Name="KisiNo" ColumnName="KisiNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblBilet">
+            <EntityTypeMapping TypeName="EFEbiletDBModel.tblBilet">
+              <MappingFragment StoreEntitySet="tblBilet">
+                <ScalarProperty Name="Ucret" ColumnName="Ucret" />
+                <ScalarProperty Name="EtkinlikID" ColumnName="EtkinlikID" />
+                <ScalarProperty Name="BiletID" ColumnName="BiletID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblBolge">
+            <EntityTypeMapping TypeName="EFEbiletDBModel.tblBolge">
+              <MappingFragment StoreEntitySet="tblBolge">
+                <ScalarProperty Name="Mahalle" ColumnName="Mahalle" />
+                <ScalarProperty Name="ilce" ColumnName="ilce" />
+                <ScalarProperty Name="il" ColumnName="il" />
+                <ScalarProperty Name="BolgeNo" ColumnName="BolgeNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblEtkinlik">
+            <EntityTypeMapping TypeName="EFEbiletDBModel.tblEtkinlik">
+              <MappingFragment StoreEntitySet="tblEtkinlik">
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="BolgeNo" ColumnName="BolgeNo" />
+                <ScalarProperty Name="KategoriID" ColumnName="KategoriID" />
+                <ScalarProperty Name="EtkinlikAdi" ColumnName="EtkinlikAdi" />
+                <ScalarProperty Name="EtkinlikID" ColumnName="EtkinlikID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblFatura">
+            <EntityTypeMapping TypeName="EFEbiletDBModel.tblFatura">
+              <MappingFragment StoreEntitySet="tblFatura">
+                <ScalarProperty Name="OdemeTuruId" ColumnName="OdemeTuruId" />
+                <ScalarProperty Name="FaturaTarihi" ColumnName="FaturaTarihi" />
+                <ScalarProperty Name="FaturaNo" ColumnName="FaturaNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblIletişimBilgileri">
+            <EntityTypeMapping TypeName="EFEbiletDBModel.tblIletişimBilgileri">
+              <MappingFragment StoreEntitySet="tblIletişimBilgileri">
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="kisiNo" ColumnName="kisiNo" />
+                <ScalarProperty Name="Adres" ColumnName="Adres" />
+                <ScalarProperty Name="TelefonNumarasi" ColumnName="TelefonNumarasi" />
+                <ScalarProperty Name="No" ColumnName="No" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblKategori">
+            <EntityTypeMapping TypeName="EFEbiletDBModel.tblKategori">
+              <MappingFragment StoreEntitySet="tblKategori">
+                <ScalarProperty Name="KategoriTuruId" ColumnName="KategoriTuruId" />
+                <ScalarProperty Name="KategoriID" ColumnName="KategoriID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblKategoriTuru">
+            <EntityTypeMapping TypeName="EFEbiletDBModel.tblKategoriTuru">
+              <MappingFragment StoreEntitySet="tblKategoriTuru">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="BalerinAdi" ColumnName="BalerinAdi" />
+                <ScalarProperty Name="SinemaAdi" ColumnName="SinemaAdi" />
+                <ScalarProperty Name="TiyatroAdi" ColumnName="TiyatroAdi" />
+                <ScalarProperty Name="KonserAdi" ColumnName="KonserAdi" />
+                <ScalarProperty Name="KategoriTuru" ColumnName="KategoriTuru" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblKisi">
+            <EntityTypeMapping TypeName="EFEbiletDBModel.tblKisi">
+              <MappingFragment StoreEntitySet="tblKisi">
+                <ScalarProperty Name="Sifre" ColumnName="Sifre" />
+                <ScalarProperty Name="KisiTürü" ColumnName="KisiTürü" />
+                <ScalarProperty Name="Soyad" ColumnName="Soyad" />
+                <ScalarProperty Name="Ad" ColumnName="Ad" />
+                <ScalarProperty Name="KisiNo" ColumnName="KisiNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblMusteri">
+            <EntityTypeMapping TypeName="EFEbiletDBModel.tblMusteri">
+              <MappingFragment StoreEntitySet="tblMusteri">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="SiparisNo" ColumnName="SiparisNo" />
+                <ScalarProperty Name="KimlikNo" ColumnName="KimlikNo" />
+                <ScalarProperty Name="KisiNo" ColumnName="KisiNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblOdemeTuru">
+            <EntityTypeMapping TypeName="EFEbiletDBModel.tblOdemeTuru">
+              <MappingFragment StoreEntitySet="tblOdemeTuru">
+                <ScalarProperty Name="isCash" ColumnName="isCash" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSiparis">
+            <EntityTypeMapping TypeName="EFEbiletDBModel.tblSiparis">
+              <MappingFragment StoreEntitySet="tblSiparis">
+                <ScalarProperty Name="BiletID" ColumnName="BiletID" />
+                <ScalarProperty Name="SiparisMiktari" ColumnName="SiparisMiktari" />
+                <ScalarProperty Name="FaturaNo" ColumnName="FaturaNo" />
+                <ScalarProperty Name="ToplamTutar" ColumnName="ToplamTutar" />
+                <ScalarProperty Name="SiparisTarihi" ColumnName="SiparisTarihi" />
+                <ScalarProperty Name="SiparisNo" ColumnName="SiparisNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

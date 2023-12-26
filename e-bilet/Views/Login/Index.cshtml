@@ -1,0 +1,85 @@
+﻿@model e_bilet.Models.tblKisi
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<!-- Bu index sayfası giriş yapma sayfasını oluşturuyor.-->
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Giriş Yap</h2>
+        @ViewBag.Mesaj
+        @using (Html.BeginForm("Index", "Login", FormMethod.Post))
+        {
+            <form action="Login" method="post">
+                <label for="Ad">Kullanıcı Adı:</label>
+                <input type="text" id="Ad" name="Ad" required>
+
+                <label for="Sifre">Şifre:</label>
+                <input type="password" id="Sifre" name="Sifre" required>
+
+                <button class="btn btn-primary">Giriş Yap</button>
+
+            </form>
+        }
+
+    </div>
+</body>
+</html>
+
+<style>
+   
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f8f9fa;
+        font-family: 'Times New Roman', Times, serif
+    }
+
+    .form-container {
+        background-color: #808080; /* Form alanının arka plan rengi */
+        max-width: 400px;
+        margin: 50px auto;
+        text-align: left;
+        padding: 20px;
+        background-color: #f4f4f4;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-container h2 {
+        color:black;
+        text-align: center;
+        font-family: 'Times New Roman'
+        }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    label {
+        margin-bottom: 8px;
+    }
+
+    input {
+        padding: 10px;
+        margin-bottom: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+   
+</style>
